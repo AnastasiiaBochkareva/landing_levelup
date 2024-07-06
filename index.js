@@ -1,28 +1,58 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // form
+    initScroll();
+    changeTextLength();
+    checkPhoneInput();
+});
+
+function initScroll() {
     document.querySelectorAll('.btn__order').forEach(function(button) {
         button.addEventListener('click', function() {
             document.querySelector('.order').scrollIntoView({ behavior: 'smooth' });
         });
     });
-    // timer
-    const timer = document.getElementById('timer');
-    let time = 30 * 60; 
-    const countdownInterval = setInterval(function() {
-        if (time <= 0) {
-            clearInterval(countdownInterval);
-            return;
-        }
-        time = time - 1;
-        const hours = Math.floor(time / 3600).toString().padStart(2, '0');
-        const minutes = Math.floor((time % 3600) / 60).toString().padStart(2, '0');
-        const seconds = (time % 60).toString().padStart(2, '0');
-        timer.textContent = hours + ":" + minutes + ":" + seconds;
-    }, 1000);
-});
+}
 
-// slider
-let swiper = new Swiper('.swiper-container', {
+function changeTextLength() {
+    let cardTexts = document.querySelectorAll('.review__text');
+    const maxLength = 200;
+    cardTexts.forEach(function(cardText) {
+        const text = cardText.textContent.trim();
+        if (text.length > maxLength) {
+            const trimmedText = text.substring(0, maxLength) + '...';
+            cardText.textContent = trimmedText;
+        }
+    });
+}
+
+function checkPhoneInput() {
+    document.getElementById('phone').addEventListener('input', function(e) {
+        const validChars = '0123456789';
+        let input = e.target.value;
+        let filteredInput = '';
+        for (let i = 0; i < input.length; i++) {
+            if (validChars.indexOf(input[i]) > -1) {
+                filteredInput += input[i];
+            }
+        }
+        e.target.value = filteredInput;
+    });
+}
+
+const timer = document.getElementById('timer');
+let time = 30 * 60; 
+const countdownInterval = setInterval(function() {
+    if (time <= 0) {
+        clearInterval(countdownInterval);
+        return;
+    }
+    time = time - 1;
+    const hours = Math.floor(time / 3600).toString().padStart(2, '0');
+    const minutes = Math.floor((time % 3600) / 60).toString().padStart(2, '0');
+    const seconds = (time % 60).toString().padStart(2, '0');
+    timer.textContent = hours + ":" + minutes + ":" + seconds;
+}, 1000);
+
+const swiper = new Swiper('.swiper-container', {
     slidesPerView: 3,
     spaceBetween: 20,
     loop: true,
@@ -42,30 +72,4 @@ let swiper = new Swiper('.swiper-container', {
         480: { slidesPerView: 1.1 },
         320: { slidesPerView: 1 },
     },
-});
-
-// phone
-document.getElementById('phone').addEventListener('input', function(e) {
-    const validChars = '0123456789';
-    let input = e.target.value;
-    let filteredInput = '';
-    for (let i = 0; i < input.length; i++) {
-        if (validChars.indexOf(input[i]) > -1) {
-            filteredInput += input[i];
-        }
-    }
-    e.target.value = filteredInput;
-});
-
-// review length
-document.addEventListener('DOMContentLoaded', function() {
-    let cardTexts = document.querySelectorAll('.review__text');
-    const maxLength = 200;
-    cardTexts.forEach(function(cardText) {
-        const text = cardText.textContent.trim();
-        if (text.length > maxLength) {
-            const trimmedText = text.substring(0, maxLength) + '...';
-            cardText.textContent = trimmedText;
-        }
-    });
 });
