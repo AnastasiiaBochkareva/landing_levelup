@@ -1,9 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    initScroll();
-    changeTextLength();
-    checkPhoneInput();
-});
-
 function initScroll() {
     document.querySelectorAll('.btn__order').forEach(function(button) {
         button.addEventListener('click', function() {
@@ -38,38 +32,56 @@ function checkPhoneInput() {
     });
 }
 
-const timer = document.getElementById('timer');
-let time = 30 * 60; 
-const countdownInterval = setInterval(function() {
-    if (time <= 0) {
-        clearInterval(countdownInterval);
-        return;
-    }
-    time = time - 1;
-    const hours = Math.floor(time / 3600).toString().padStart(2, '0');
-    const minutes = Math.floor((time % 3600) / 60).toString().padStart(2, '0');
-    const seconds = (time % 60).toString().padStart(2, '0');
-    timer.textContent = hours + ":" + minutes + ":" + seconds;
-}, 1000);
+document.addEventListener('DOMContentLoaded', function() {
+    initScroll();
+    changeTextLength();
+    checkPhoneInput();
 
-const swiper = new Swiper('.swiper-container', {
-    slidesPerView: 3,
-    spaceBetween: 20,
-    loop: true,
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-    breakpoints: {
-        1270: { slidesPerView: 3 },
-        1120: { slidesPerView: 2.5 },
-        950: { slidesPerView: 2.1 },
-        700: { slidesPerView: 1.3 },
-        480: { slidesPerView: 1.1 },
-        320: { slidesPerView: 1 },
-    },
+    const timer = document.getElementById('timer');
+    let time = 30 * 60; 
+    const countdownInterval = setInterval(function() {
+        if (time <= 0) {
+            clearInterval(countdownInterval);
+            return;
+        }
+        time = time - 1;
+        const hours = Math.floor(time / 3600).toString().padStart(2, '0');
+        const minutes = Math.floor((time % 3600) / 60).toString().padStart(2, '0');
+        const seconds = (time % 60).toString().padStart(2, '0');
+        timer.textContent = hours + ":" + minutes + ":" + seconds;
+    }, 1000);
+
+    const swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            1270: { 
+                slidesPerView: 3 
+            },
+            1120: { 
+                slidesPerView: 2.5 
+            },
+            950: { 
+                slidesPerView: 2.1 
+            },
+            700: { 
+                slidesPerView: 1.3 
+            },
+            480: { 
+                slidesPerView: 1.1 
+            },
+            320: { 
+                slidesPerView: 1 
+            },
+        },
+    });
 });
